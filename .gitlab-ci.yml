@@ -1,0 +1,30 @@
+# Build Docker image with CI/CD and push to the GitLab registry.
+
+variables:
+  CI_REGISTRY: "eoelab.org:1032/build-image-stacks/gameserver-image-stacks"
+before_script:
+  - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
+java-8-build:
+  tags: [build]
+  stage: build
+  needs: []
+  script:
+    - cd Minecraft/java-8
+    - docker build -t $CI_REGISTRY/gameserver:java-8 . --network=host
+    - docker push $CI_REGISTRY/gameserver:java-8
+java-16-build:
+  tags: [build]
+  stage: build
+  needs: []
+  script:
+    - cd Minecraft/java-16
+    - docker build -t $CI_REGISTRY/gameserver:java-16 . --network=host
+    - docker push $CI_REGISTRY/gameserver:java-16
+java-17-build:
+  tags: [build]
+  stage: build
+  needs: []
+  script:
+    - cd Minecraft/java-17
+    - docker build -t $CI_REGISTRY/gameserver:java-17 . --network=host
+    - docker push $CI_REGISTRY/gameserver:java-17
