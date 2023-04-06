@@ -15,7 +15,7 @@ base-build:
 java-8-build:
   tags: [build]
   stage: build
-  needs: [base-build]
+  needs: []
   script:
     - cd Minecraft/java-8
     - docker build -t $CI_REGISTRY/gameserver:java-8 . --network=host
@@ -23,7 +23,7 @@ java-8-build:
 java-16-build:
   tags: [build]
   stage: build
-  needs: [base-build]
+  needs: []
   script:
     - cd Minecraft/java-16
     - docker build -t $CI_REGISTRY/gameserver:java-16 . --network=host
