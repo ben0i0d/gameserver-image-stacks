@@ -1,7 +1,2 @@
-FROM openjdk:17
-RUN mkdir -p /workspace
-ENV LANG=zh_CN.UTF-8
-ENV LANGUAGE=zh_CN.UTF-8
-ENV LC_ALL=zh_CN.UTF-8
-ENV TZ=Asia/Shanghai
-WORKDIR /workspace
+FROM eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:base
+RUN apt update && apt install openjdk-17-jdk-headless

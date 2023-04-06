@@ -4,10 +4,18 @@ variables:
   CI_REGISTRY: "eoelab.org:1032/build-image-stacks/gameserver-image-stacks"
 before_script:
   - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
-java-8-build:
+base-build:
   tags: [build]
   stage: build
   needs: []
+  script:
+    - cd base
+    - docker build -t $CI_REGISTRY/gameserver:base . --network=host
+    - docker push $CI_REGISTRY/gameserver:base
+java-8-build:
+  tags: [build]
+  stage: build
+  needs: [base-build]
   script:
     - cd Minecraft/java-8
     - docker build -t $CI_REGISTRY/gameserver:java-8 . --network=host
@@ -15,7 +23,7 @@ java-8-build:
 java-16-build:
   tags: [build]
   stage: build
-  needs: []
+  needs: [base-build]
   script:
     - cd Minecraft/java-16
     - docker build -t $CI_REGISTRY/gameserver:java-16 . --network=host
@@ -23,7 +31,7 @@ java-16-build:
 java-17-build:
   tags: [build]
   stage: build
-  needs: []
+  needs: [base-build]
   script:
     - cd Minecraft/java-17
     - docker build -t $CI_REGISTRY/gameserver:java-17 . --network=host
