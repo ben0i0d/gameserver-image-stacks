@@ -1,2 +1,4 @@
-FROM eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:base
-RUN apt-get update && apt-get install -y openjdk-16-jre-headless
+FROM openjdk:16.0.2
+RUN mkdir -p /workspace
+ENV TZ=Asia/Shanghai
+WORKDIR /workspace
