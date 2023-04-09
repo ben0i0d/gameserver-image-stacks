@@ -12,6 +12,14 @@ base-build:
     - cd base
     - docker build -t $CI_REGISTRY/gameserver:base . --network=host
     - docker push $CI_REGISTRY/gameserver:base
+steam-build:
+  tags: [build]
+  stage: build
+  needs: [base-build]
+  script:
+    - cd base
+    - docker build -t $CI_REGISTRY/gameserver:steam . --network=host
+    - docker push $CI_REGISTRY/gameserver:steam
 java-8-build:
   tags: [build]
   stage: build
