@@ -17,16 +17,16 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 
 # Update the repository and install SteamCMD
 ARG DEBIAN_FRONTEND=noninteractive
-RUN dpkg --add-architecture i386 \
-    && apt-get update -y \
-    && apt-get install -y --no-install-recommends ca-certificates  steamcmd \
+RUN apt-get update -y \
+    && apt-get install -y --no-install-recommends ca-certificates curl lib32gcc1 \
     && rm -rf /var/lib/apt/lists/*
+    && curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
 
 # Create symlink for executable
 RUN ln -s /usr/games/steamcmd /usr/bin/steamcmd
 
 # Update SteamCMD and verify latest version
-RUN steamcmd +quit
+RUN /steamcmd/steamcmd.sh +quit
 
 # Set default command
 ENTRYPOINT ["steamcmd"]
