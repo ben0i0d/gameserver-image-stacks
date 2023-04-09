@@ -17,7 +17,7 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 
 # Update the repository and install SteamCMD
 ARG DEBIAN_FRONTEND=noninteractive
-RUN dpkg --add-architecture i386 
+RUN dpkg --add-architecture i386 \
     && add-apt-repository multiverse \
     && apt-get update -y \
     && apt-get install -y --no-install-recommends ca-certificates  steamcmd \
