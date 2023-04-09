@@ -18,7 +18,7 @@ steam-build:
   needs: [base-build]
   script:
     - cd steam
-    - docker build -t  $CI_REGISTRY/gameserver:steam . --network=host --platform linux/i386,linux/amd64
+    - docker buildx build -t  $CI_REGISTRY/gameserver:steam . --network=host --platform linux/i386,linux/amd64
     - docker push $CI_REGISTRY/gameserver:steam
 java-8-build:
   tags: [build]
