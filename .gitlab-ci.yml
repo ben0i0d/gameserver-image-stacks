@@ -28,14 +28,14 @@ java-8-build:
     - cd Minecraft/java-8
     - docker build -t $CI_REGISTRY/gameserver:java-8 . --network=host
     - docker push $CI_REGISTRY/gameserver:java-8
-java-16-build:
+java-11-build:
   tags: [build]
   stage: build
   needs: [base-build]
   script:
-    - cd Minecraft/java-16
-    - docker build -t $CI_REGISTRY/gameserver:java-16 . --network=host
-    - docker push $CI_REGISTRY/gameserver:java-16
+    - cd Minecraft/java-11
+    - docker build -t $CI_REGISTRY/gameserver:java-11 . --network=host
+    - docker push $CI_REGISTRY/gameserver:java-11
 java-17-build:
   tags: [build]
   stage: build
