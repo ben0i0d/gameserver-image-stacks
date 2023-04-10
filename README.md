@@ -7,8 +7,9 @@
 ```mermaid
 	graph LR
 	A(base)-->B(Minecraft)
-	B-->C(Java-8)-->G(MineCraft<17)
-	B-->D(Java-16)-->H(MineCraft=17)
-    B-->E(Java-17)-->I(MineCraft>17)
-    A-->F(Steam)
+	B-->C(Java)
+	C-->D(JRE-8)-->G(MC<=1.7)
+	C-->E(JRE-11)-->H(1.8<=MC<=1.16)
+    C-->F(JRE-17)-->I(MC>=1.17)
+    A-->J(Steam)
 ```
