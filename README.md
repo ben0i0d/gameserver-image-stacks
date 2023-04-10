@@ -5,7 +5,8 @@
 3. 我们的docker镜像仓库是 https://hub.docker.com/r/ben0i0d/gameserver   
 4. 对于issue/PR，我们推荐在源仓库上提，这对于我们工作更方便，但是如果您在github上提，我们也会跟进处理  
 ## 我是谁
-这是用于构建eoelab中游戏服务器镜像项目  
+这是用于构建eoelab中游戏服务器镜像项目，项目内构建的镜像是在docker基础上提供服务  
+游戏服务器是MCSmanager，官方地址为 https://github.com/MCSManager/MCSManager  
 ## 镜像依赖关系
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
