@@ -1,7 +1,7 @@
 ######## INSTALL ########
 
 # Set the base image
-FROM ubuntu:22.04
+FROM eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:base
 
 # Set environment variables
 ENV USER root

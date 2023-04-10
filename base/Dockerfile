@@ -1,6 +1,6 @@
-FROM debian:bullseye
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
-    sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list
+FROM ubuntu:22.04
+RUN sed -i 's@//.*archive.ubuntu.com@//mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
+    sed -i 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 RUN apt-get update && apt-get install -y locales
 RUN echo "zh_CN.UTF-8 UTF-8">/etc/locale.gen && locale-gen
 ENV LANG=zh_CN.UTF-8
