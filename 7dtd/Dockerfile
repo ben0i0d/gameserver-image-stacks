@@ -6,5 +6,5 @@ RUN steamcmd && \
     force_install_dir /workspace && \
     login anonymous  && \
     app_update 294420  && \
-    quit && \
+    quit
 
