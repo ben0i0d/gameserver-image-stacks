@@ -25,7 +25,7 @@ steam-build:
   stage: build
   needs: [steam-build]
   script:
-    - cd steam
+    - cd 7dtd
     - docker build -t  $CI_REGISTRY/gameserver:7dtd . --network=host 
     - docker push $CI_REGISTRY/gameserver:7dtd
 java-8-build:

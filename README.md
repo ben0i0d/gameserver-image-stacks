@@ -16,5 +16,5 @@
 	C-->D(JRE-8)-->G(MC<=1.7)
 	C-->E(JRE-11)-->H(1.8<=MC<=1.16)
     C-->F(JRE-17)-->I(MC>=1.17)
-    A-->J(Steam)
+    A-->J(Steam)-->K(7 days to die,7DTD)
 ```
