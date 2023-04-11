@@ -19,6 +19,3 @@ RUN ln -s /usr/games/steamcmd /usr/bin/steamcmd
 # Update SteamCMD and verify latest version
 RUN steamcmd +quit
 
-# Set default command
-ENTRYPOINT ["steamcmd"]
-CMD ["+help", "+quit"]

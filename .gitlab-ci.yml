@@ -20,6 +20,14 @@ steam-build:
     - cd steam
     - docker build -t  $CI_REGISTRY/gameserver:steam . --network=host 
     - docker push $CI_REGISTRY/gameserver:steam
+7dtd-build:
+  tags: [build]
+  stage: build
+  needs: [steam-build]
+  script:
+    - cd steam
+    - docker build -t  $CI_REGISTRY/gameserver:7dtd . --network=host 
+    - docker push $CI_REGISTRY/gameserver:7dtd
 java-8-build:
   tags: [build]
   stage: build
