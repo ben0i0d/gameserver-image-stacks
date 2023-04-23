@@ -11,7 +11,6 @@ base-build:
   script:
     - cd base
     - docker build -t $CI_REGISTRY/gameserver:base . --network=host
-    - docker push $CI_REGISTRY/gameserver:base
 steam-build:
   tags: [build]
   stage: build
