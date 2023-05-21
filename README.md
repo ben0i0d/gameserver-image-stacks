@@ -7,6 +7,7 @@
 ## 我是谁
 这是用于构建eoelab中游戏服务器镜像项目，项目内构建的镜像是在docker基础上提供服务  
 游戏服务器是MCSmanager，官方地址为 https://github.com/MCSManager/MCSManager  
+*使用时务必注意持久化数据*  
 ## 镜像依赖关系
 节点内为镜像，默认子节点是父节点的派生  
 ```mermaid
@@ -17,4 +18,5 @@
 	C-->E(JRE-11)-->H(1.8<=MC<=1.16)
     C-->F(JRE-17)-->I(MC>=1.17)
     A-->J(Steam)-->K(7 days to die)
+	J-->L(Satisfactory)
 ```

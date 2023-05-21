@@ -1,7 +1,10 @@
 # Build Docker image with CI/CD and push to the GitLab registry.
-
-variables:
-  CI_REGISTRY: "eoelab.org:1032/build-image-stacks/gameserver-image-stacks"
+image:
+  name: gcr.io/kaniko-project/executor:debug
+  entrypoint: [""]
+before_script:
+  - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
+  - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
 before_script:
   - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
 base-build:
@@ -10,44 +13,95 @@ base-build:
   needs: []
   script:
     - cd base
-    - docker build -t $CI_REGISTRY/gameserver:base . --network=host
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:base"
 steam-build:
   tags: [build]
   stage: build
   needs: [base-build]
   script:
     - cd steam
-    - docker build -t  $CI_REGISTRY/gameserver:steam . --network=host 
-    - docker push $CI_REGISTRY/gameserver:steam
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:steam"
 7dtd-build:
   tags: [build]
   stage: build
   needs: [steam-build]
   script:
     - cd 7dtd
-    - docker build -t  $CI_REGISTRY/gameserver:7dtd . --network=host 
-    - docker push $CI_REGISTRY/gameserver:7dtd
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:7dtd"
+satisfactory-build:
+  tags: [build]
+  stage: build
+  needs: [steam-build]
+  script:
+    - cd satisfactory
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:satisfactory"
 java-8-build:
   tags: [build]
   stage: build
   needs: [base-build]
   script:
     - cd Minecraft/java-8
-    - docker build -t $CI_REGISTRY/gameserver:java-8 . --network=host
-    - docker push $CI_REGISTRY/gameserver:java-8
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:java-8"
 java-11-build:
   tags: [build]
   stage: build
   needs: [base-build]
   script:
     - cd Minecraft/java-11
-    - docker build -t $CI_REGISTRY/gameserver:java-11 . --network=host
-    - docker push $CI_REGISTRY/gameserver:java-11
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:java-11"
 java-17-build:
   tags: [build]
   stage: build
   needs: [base-build]
   script:
     - cd Minecraft/java-17
-    - docker build -t $CI_REGISTRY/gameserver:java-17 . --network=host
-    - docker push $CI_REGISTRY/gameserver:java-17
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=true
+      --cache-copy-layers=true
+      --cache-run-layers=true
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:java-17"
