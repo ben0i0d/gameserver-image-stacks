@@ -5,10 +5,7 @@ image:
 before_script:
   - wget http://eoelab.org:1024/index.php/s/XHeP7K3ZAHPHymM/download/eoelab.org.crt
   - mv eoelab.org.crt /kaniko/ssl/certs/additional-ca-cert-bundle.crt
-before_script:
-  - docker login -u $CI_USER -p $CI_PASSWORD $LOCAL_REGISTRY
 base-build:
-  tags: [build]
   stage: build
   needs: []
   script:
@@ -22,7 +19,6 @@ base-build:
       --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:base"
 steam-build:
-  tags: [build]
   stage: build
   needs: [base-build]
   script:
@@ -36,7 +32,6 @@ steam-build:
       --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:steam"
 7dtd-build:
-  tags: [build]
   stage: build
   needs: [steam-build]
   script:
@@ -50,7 +45,6 @@ steam-build:
       --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:7dtd"
 satisfactory-build:
-  tags: [build]
   stage: build
   needs: [steam-build]
   script:
@@ -64,7 +58,6 @@ satisfactory-build:
       --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:satisfactory"
 java-8-build:
-  tags: [build]
   stage: build
   needs: [base-build]
   script:
@@ -78,7 +71,6 @@ java-8-build:
       --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:java-8"
 java-11-build:
-  tags: [build]
   stage: build
   needs: [base-build]
   script:
@@ -92,7 +84,6 @@ java-11-build:
       --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
       --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:java-11"
 java-17-build:
-  tags: [build]
   stage: build
   needs: [base-build]
   script:
