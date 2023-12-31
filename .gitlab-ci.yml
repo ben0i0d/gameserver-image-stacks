@@ -1,0 +1,54 @@
+# Build Docker image with CI/CD and push to the GitLab registry.
+image:
+  name: gcr.io/kaniko-project/executor:debug
+  entrypoint: [""]
+before_script:
+  - cat $EOELAB_DOMAIN_CERT > /kaniko/ssl/certs/additional-ca-cert-bundle.crt
+base-build:
+  stage: build
+  needs: []
+  script:
+    - cd base
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:base"
+jre-8-build:
+  stage: build
+  needs: [base-build]
+  script:
+    - cd jre/8
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:jre-8"
+jre-11-build:
+  stage: build
+  needs: [base-build]
+  script:
+    - cd jre/11
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:jre-11"
+jre-17-build:
+  stage: build
+  needs: [base-build]
+  script:
+    - cd jre/17
+    - /kaniko/executor
+      --context ./
+      --dockerfile "Dockerfile"
+      --cache=false
+      --snapshot-mode=redo
+      --cache-repo "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/cache"
+      --destination "eoelab.org:1032/build-image-stacks/gameserver-image-stacks/gameserver:jre-17"
